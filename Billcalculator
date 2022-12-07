@@ -1,0 +1,60 @@
+Bot.send("Bill Calculation Bot");
+Bot.send("Please enter state name and no of unit consumed.stateName$noUnit");
+async function respond(inputText){
+	console.log(inputText);
+	var splitValue=inputText.split("$");
+	console.log(splitValue);
+	var state=splitValue[0];
+	var unit=splitValue[1];
+	var unitPrice=getUnitPrice(state);//calling function
+	var bill=generateBill(unit,unitPrice);
+	var time=generationTime();
+
+	Bot.send("State entered " + state + " unit consumed " + unit+" unitPrice Rs."+unitPrice+ " final bill Rs."+bill);
+	Bot.send("Last responded at:"+time);
+}
+
+function getUnitPrice(state) {// declaration of function 
+    //enter body
+	var unitPrice;
+	if(state.tolowerCase()=="maharashtra"){
+		unitPrice=8;
+	}
+	else if(state.tolowerCase()=="himachal"){
+		unitPrice=3;
+	}
+	else{
+		unitPrice=30;
+	}
+	return unitPrice;
+
+}
+function generateBill(unit,unitPrice){
+	var bill=unit*unitPrice;
+	return bill;
+}
+function generationTime(){// teach this concept in next class.
+     var date=new Date();
+	 var hours=date.getHours();
+	 var minutes=date.getHinutes();
+	 var seconds=date.getseconds();
+	 var time;
+	 //var session=hours>=12?"PM":"AM";//explain ternary opertor
+// if kids can understand else use normal code
+    //hours=(hours>10?"0":"")+hours;
+ //minutes=(minutes<10?"0":"")+minutes;
+  //seconds=(seconds<10?"0":"")+seconds;
+var session="AM";//give this task as homework
+if(hours>12){
+	hours=hours=12;
+	session="PM";
+} 
+if(hours<10){
+	hours="0"+hours;
+}
+if(seconds<10){
+	hours="0"+hours;
+}
+time=hours+":"+minutes+":"+seconds+" "+session;
+return time;
+}
